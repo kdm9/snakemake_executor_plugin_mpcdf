@@ -120,12 +120,11 @@ class Executor(RemoteExecutor):
             elif exitcode == 0:
                 # job finished successfully
                 os.remove(jobscript)
-                self.report_job_success(active_job.job)
+                self.report_job_success(active_job)
             else:
                 # job failed
                 os.remove(jobscript)
-                self.print_job_error(active_job)
-                self.report_job_error(active_job.job)
+                self.report_job_error(active_job)
 
     def cancel_jobs(self, active_jobs: List[SubmittedJobInfo]):
         # Cancel all active jobs.
