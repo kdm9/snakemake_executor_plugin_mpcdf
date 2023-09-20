@@ -11,7 +11,7 @@ from snakemake_interface_executor_plugins import ExecutorSettingsBase, CommonSet
 from snakemake_interface_executor_plugins.workflow import WorkflowExecutorInterface
 from snakemake_interface_executor_plugins.logging import LoggerExecutorInterface
 from snakemake_interface_executor_plugins.jobs import (
-    ExecutorJobInterface,
+    JobExecutorInterface,
 )
 
 
@@ -65,7 +65,7 @@ class Executor(RemoteExecutor):
             pass_envvar_declarations_to_cmd=True,
         )
 
-    def run_job(self, job: ExecutorJobInterface):
+    def run_job(self, job: JobExecutorInterface):
         # Implement here how to run a job.
         # You can access the job's resources, etc.
         # via the job object.
