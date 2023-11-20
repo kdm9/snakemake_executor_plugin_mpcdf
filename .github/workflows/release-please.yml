@@ -24,9 +24,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
-          python-version: "3.9"
+          python-version: "3.11"
 
       - name: Install poetry
         run: pipx install poetry
@@ -36,13 +36,11 @@ jobs:
 
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.9"
+          python-version: "3.11"
           cache: poetry
 
       - name: Install Dependencies using Poetry
-        run: |
-          pip install connection-pool # because it is incompatible with poetry
-          poetry install
+        run: poetry install
 
       - name: Publish to PyPi
         env:

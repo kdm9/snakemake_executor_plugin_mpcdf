@@ -43,27 +43,17 @@ common_settings = CommonSettings(
     # filesystem (True) or not (False).
     # This is e.g. the case for cloud execution.
     implies_no_shared_fs=False,
+    job_deploy_sources=False,
+    pass_default_storage_provider_args=True,
+    pass_default_resources_args=True,
+    pass_envvar_declarations_to_cmd=True,
+    auto_deploy_default_storage_provider=False,
 )
 
 
 # Required:
 # Implementation of your executor
 class Executor(RemoteExecutor):
-    def __init__(
-        self,
-        workflow: WorkflowExecutorInterface,
-        logger: LoggerExecutorInterface,
-    ):
-        super().__init__(
-            workflow,
-            logger,
-            # whether arguments for setting the remote provider shall  be passed to jobs
-            pass_default_storage_provider_args=True,
-            # whether arguments for setting default resources shall be passed to jobs
-            pass_default_resources_args=True,
-            # whether environment variables shall be passed to jobs
-            pass_envvar_declarations_to_cmd=True,
-        )
 
     def run_job(self, job: JobExecutorInterface):
         # Implement here how to run a job.

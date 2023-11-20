@@ -6,10 +6,9 @@ authors = ["Johannes Koester <johannes.koester@uni-due.de>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.11"
 snakemake-interface-common = "^1.13.0"
-snakemake-interface-executor-plugins = "^7.0.0"
-
+snakemake-interface-executor-plugins = "^8.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
