@@ -122,7 +122,7 @@ class Executor(RemoteExecutor):
         self.logger.info("Will exit after finishing currently running jobs.")
 
     def get_job_exec_prefix(self, job):
-        if self.workflow.storage_settings.assume_shared_fs:
+        if self.workflow.storage_settings.assume_common_workdir:
             return f"cd {shlex.quote(self.workflow.workdir_init)}"
         else:
             return ""
