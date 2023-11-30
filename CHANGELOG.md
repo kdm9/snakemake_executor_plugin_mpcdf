@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/snakemake/snakemake-executor-plugin-cluster-sync/compare/v0.1.1...v0.1.2) (2023-11-30)
+
+
+### Bug Fixes
+
+* adapt to interface changes ([ddbebab](https://github.com/snakemake/snakemake-executor-plugin-cluster-sync/commit/ddbebab52a8f7414f8da0347212bd24762336df8))
+
 ## [0.1.1](https://github.com/snakemake/snakemake-executor-plugin-cluster-sync/compare/v0.1.0...v0.1.1) (2023-11-20)
 
 
