@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/snakemake/snakemake-executor-plugin-cluster-sync/compare/v0.1.2...v0.1.3) (2023-12-08)
+
+
+### Documentation
+
+* update metadata ([5f72c68](https://github.com/snakemake/snakemake-executor-plugin-cluster-sync/commit/5f72c68d56f05d2a681f479a97aed030e122bd4f))
+
 ## [0.1.2](https://github.com/snakemake/snakemake-executor-plugin-cluster-sync/compare/v0.1.1...v0.1.2) (2023-11-30)
 
 
