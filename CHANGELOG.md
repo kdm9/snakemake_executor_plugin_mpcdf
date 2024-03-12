@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/snakemake/snakemake-executor-plugin-cluster-sync/compare/v0.1.3...v0.1.4) (2024-03-12)
+
+
+### Bug Fixes
+
+* update interface dependency ([#6](https://github.com/snakemake/snakemake-executor-plugin-cluster-sync/issues/6)) ([a5fd97e](https://github.com/snakemake/snakemake-executor-plugin-cluster-sync/commit/a5fd97e3b2320e379049b176d9b5a05c8c6c7f5c))
+
 ## [0.1.3](https://github.com/snakemake/snakemake-executor-plugin-cluster-sync/compare/v0.1.2...v0.1.3) (2023-12-08)
 
 
