@@ -12,7 +12,7 @@ keywords = ["snakemake", "plugin", "executor", "cluster"]
 [tool.poetry.dependencies]
 python = "^3.11"
 snakemake-interface-common = "^1.14.0"
-snakemake-interface-executor-plugins = "^8.1.0"
+snakemake-interface-executor-plugins = "^9.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
