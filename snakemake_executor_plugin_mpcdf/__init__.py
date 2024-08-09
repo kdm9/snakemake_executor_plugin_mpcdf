@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 import os
 import shlex
 import subprocess
+import re
 from typing import List, Generator, Optional
 
 from snakemake_interface_common.exceptions import WorkflowError
@@ -22,13 +23,14 @@ from snakemake_interface_executor_plugins.jobs import (
 # Omit this class if you don't need any.
 @dataclass
 class ExecutorSettings(ExecutorSettingsBase):
-    submit_cmd: Optional[str] = field(
-        default=None,
-        metadata={
-            "help": "Submission command for synchronous cluster "
-            "submission (expecting jobscript as single argument)."
-        },
-    )
+    pass
+    #submit_cmd: Optional[str] = field(
+    #    default=None,
+    #    metadata={
+    #        "help": "Submission command for synchronous cluster "
+    #        "submission (expecting jobscript as single argument)."
+    #    },
+    #)
 
 
 # Required:
@@ -65,17 +67,36 @@ class Executor(RemoteExecutor):
         # snakemake_interface_executor_plugins.executors.base.SubmittedJobInfo.
 
         jobscript = self.get_jobscript(job)
+
+        if job.is_group():
+            mem = 0
+            cpus = 0
+            for sub in job.jobs:
+                mem=max(sub.resources.get("mem_mb", 1024), mem)
+                cpus=max(sub.threads, cpus)
+        else:
+            mem=job.resources.get("mem_mb", 1024)
+            cpus=job.threads
+
+        print(f"jobsize of {cpus}c {mem}m")
         self.write_jobscript(job, jobscript)
+        with open(jobscript) as fh:
+            js = fh.read()
+            js = re.sub(r"--cores \d+", f"--cores {cpus}",  js)
+        with open(jobscript, "w") as fh:
+            fh.write(js)
 
-        try:
-            submitcmd = job.format_wildcards(self.workflow.executor_settings.submit_cmd)
-        except AttributeError as e:
-            raise WorkflowError(str(e), rule=job.rules if not job.is_group() else None)
+        cmd = ["srun",
+               "--nodes=1",
+               "--ntasks=1",
+               "--cpu-bind=q",
+               "--exact",
+               f"--cpus-per-task={cpus}",
+               f"--mem={mem}",
+               "bash",
+               jobscript]
 
-        process = subprocess.Popen(
-            f'{submitcmd} "{jobscript}"',
-            shell=True,
-        )
+        process = subprocess.Popen(cmd)
 
         self.report_job_submission(
             SubmittedJobInfo(job, aux={"process": process, "jobscript": jobscript})

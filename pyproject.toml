@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "snakemake-executor-plugin-cluster-sync"
-version = "0.1.4"
-description = "A Snakemake executor plugin for cluster jobs that are executed synchronously."
-authors = ["Johannes Koester <johannes.koester@uni-due.de>"]
+name = "snakemake-executor-plugin-mpcdf"
+version = "0.1.0"
+description = "A Snakemake executor plugin for cluster jobs on MPCDF."
+authors = ["Kevin Murray <foss@kdmurray.id.au>"]
 readme = "README.md"
 license = "MIT"
 repository = "https://github.com/snakemake/snakemake-executor-plugin-cluster-sync"
