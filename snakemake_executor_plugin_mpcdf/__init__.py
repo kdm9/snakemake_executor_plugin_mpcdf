@@ -24,13 +24,6 @@ from snakemake_interface_executor_plugins.jobs import (
 @dataclass
 class ExecutorSettings(ExecutorSettingsBase):
     pass
-    #submit_cmd: Optional[str] = field(
-    #    default=None,
-    #    metadata={
-    #        "help": "Submission command for synchronous cluster "
-    #        "submission (expecting jobscript as single argument)."
-    #    },
-    #)
 
 
 # Required:
@@ -72,29 +65,32 @@ class Executor(RemoteExecutor):
             mem = 0
             cpus = 0
             for sub in job.jobs:
-                mem=max(sub.resources.get("mem_mb", 1024), mem)
-                cpus=max(sub.threads, cpus)
+                mem = max(sub.resources.get("mem_mb", 1024), mem)
+                cpus = max(sub.threads, cpus)
         else:
-            mem=job.resources.get("mem_mb", 1024)
-            cpus=job.threads
+            mem = job.resources.get("mem_mb", 1024)
+            cpus = job.threads
 
         print(f"jobsize of {cpus}c {mem}m")
         self.write_jobscript(job, jobscript)
         with open(jobscript) as fh:
             js = fh.read()
-            js = re.sub(r"--cores \d+", f"--cores {cpus}",  js)
+            js = re.sub(r"--cores \d+", f"--cores {cpus}", js)
         with open(jobscript, "w") as fh:
             fh.write(js)
 
-        cmd = ["srun",
-               "--nodes=1",
-               "--ntasks=1",
-               "--cpu-bind=q",
-               "--exact",
-               f"--cpus-per-task={cpus}",
-               f"--mem={mem}",
-               "bash",
-               jobscript]
+        cmd = [
+            "srun",
+            "--nodes=1",
+            "--ntasks=1",
+            "--cpu-bind=q",
+            "--exact",
+            "--kill-on-bad-exit",
+            f"--cpus-per-task={cpus}",
+            f"--mem={mem}",
+            "bash",
+            jobscript,
+        ]
 
         process = subprocess.Popen(cmd)
 
